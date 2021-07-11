@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home Challenge </title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./index.css"/>
+</head>
+<body>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#upload").bind("click", function () {
+                var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
+                if (regex.test($("#fileUpload").val().toLowerCase())) {
+                    if (typeof (FileReader) != "undefined") {
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            var customers = new Array();
+                            var rows = e.target.result.split("\r\n");
+                            for (var i = 1; i < rows.length-1; i++) {
+                                var cells = rows[i].split(",");
+                                if (cells.length > 1) {
+                                    var customer = {};
+                                    customer.Id = cells[0];
+                                    customer.Name = cells[1];
+                                    customers.push(customer);
+                                }
+                            }
+                            var data=JSON.stringify(customers);
+                            alert(JSON.stringify(customers));
+                            $.ajax({
+                                type: "POST",
+                                url: "http://127.0.0.1:8000",
+                                data: data,
+                                success: function (data) {
+                                    alert(data);
+                                }
+                            });
+                        }
+                        reader.readAsText($("#fileUpload")[0].files[0]);
+                    } else {
+                        alert("This browser does not support HTML5.");
+                    }
+                } else {
+                    alert("Please upload a valid CSV file.");
+                }
+            });
+        });
+    </script>
+    <hr />
+    <!-- <div id="dvCSV"> -->
+    </div>
+    <h1>API Call Using jQuery AJAX</h1>
+    <div class="container">
+        <div id="content">
+            <div id="viewContent">
+                <h4>Upload test Data</h4>
+                <div class="textAlignCenter">
+                    <div>
+                        <!-- <input type="file" id="fileUpload" /> -->
+                        <input  type="file" id="fileUpload"  class="form-control" required="required" >
+                    </div> <input type="button"  id="upload" value="Upload" style="color: black;"/>                    
+                    <img src="loading.gif" />
+                </div>
+                <div id="message"></div>
+            </div>
+        </div>
+    </div>    
+</body>
+</html>
