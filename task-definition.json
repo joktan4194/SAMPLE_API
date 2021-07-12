@@ -1,16 +1,16 @@
 {
   "family": "dcdojo",
-  "executionRoleArn": "arn:aws:iam::112233445566:role/ecsTaskExecutionRole",
+  "executionRoleArn": "arn:aws:iam::573096830291:role/ecsTaskExecutionRole",
   "containerDefinitions": [
       {
           "name": "dcdojo-container",
-          "image": "112233445566.dkr.ecr.us-east-2.amazonaws.com/dcdojo-amine:4622390a2b34f72y5f389cb62128a305641942cd",
+          "image": "573096830291.dkr.ecr.us-east-1.amazonaws.com/simple-user-api",
           "cpu": 512,
           "portMappings": [
             {
-              "hostPort": 8888,
+              "hostPort": 8000,
               "protocol": "tcp",
-              "containerPort": 8888
+              "containerPort": 8000
             }
           ],
           "memory": 1024,
@@ -18,8 +18,8 @@
           "logConfiguration": {
             "logDriver": "awslogs",
             "options": {
-              "awslogs-group": "/ecs/dcdojo",
-              "awslogs-region": "us-east-2",
+              "awslogs-group": "/ecs/joktanlog",
+              "awslogs-region": "us-east-1",
               "awslogs-stream-prefix": "ecs"
             }
           }
