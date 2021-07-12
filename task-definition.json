@@ -1,9 +1,9 @@
 {
-  "family": "dcdojo",
+  "family": "bfree-task-definition",
   "executionRoleArn": "arn:aws:iam::573096830291:role/ecsTaskExecutionRole",
   "containerDefinitions": [
       {
-          "name": "dcdojo-container",
+          "name": "bfree-image",
           "image": "573096830291.dkr.ecr.us-east-1.amazonaws.com/simple-user-api",
           "cpu": 512,
           "portMappings": [
@@ -18,9 +18,9 @@
           "logConfiguration": {
             "logDriver": "awslogs",
             "options": {
-              "awslogs-group": "/ecs/joktanlog",
-              "awslogs-region": "us-east-1",
-              "awslogs-stream-prefix": "ecs"
+          "awslogs-group": "/ecs/bfree-task-definition",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "ecss"
             }
           }
       }
